@@ -1,0 +1,81 @@
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+import { connectDB, getDBMode } from './config/db.js';
+import authRoutes from './routes/authRoutes.js';
+import childRoutes from './routes/childRoutes.js';
+import admissionRoutes from './routes/admissionRoutes.js';
+import classRoutes from './routes/classRoutes.js';
+import teacherRoutes from './routes/teacherRoutes.js';
+import attendanceRoutes from './routes/attendanceRoutes.js';
+import feeRoutes from './routes/feeRoutes.js';
+import activityRoutes from './routes/activityRoutes.js';
+import scheduleRoutes from './routes/scheduleRoutes.js';
+import communicationRoutes from './routes/communicationRoutes.js';
+import dashboardRoutes from './routes/dashboardRoutes.js';
+import reportRoutes from './routes/reportRoutes.js';
+
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// Initialize Database (Real Mongo or In-Memory Store)
+await connectDB();
+
+// Middleware
+app.use(cors());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(morgan('dev'));
+
+// Static files (uploads)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Health & System Info API
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'online',
+    system: 'Kinder Hub – Preschool Management API',
+    version: '1.0.0',
+    mode: getDBMode(),
+    timestamp: new Date().toISOString()
+  });
+});
+
+// API Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/children', childRoutes);
+app.use('/api/admissions', admissionRoutes);
+app.use('/api/classes', classRoutes);
+app.use('/api/teachers', teacherRoutes);
+app.use('/api/attendance', attendanceRoutes);
+app.use('/api/fees', feeRoutes);
+app.use('/api/activities', activityRoutes);
+app.use('/api/schedule', scheduleRoutes);
+app.use('/api/communication', communicationRoutes);
+app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/reports', reportRoutes);
+
+// Centralized Error Handler
+app.use((err, req, res, next) => {
+  console.error('Server error:', err);
+  res.status(err.status || 500).json({
+    message: err.message || 'Internal Server Error',
+    error: process.env.NODE_ENV === 'development' ? err.stack : undefined
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`🎈 KinderHub Server running smoothly on http://localhost:${PORT}`);
+  console.log(`🌟 Operating mode: ${getDBMode().toUpperCase()}`);
+});
+
+export default app;
