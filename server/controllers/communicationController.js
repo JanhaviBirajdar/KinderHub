@@ -120,7 +120,12 @@ export const createLeaveRequest = (req, res) => {
     };
 
     store.leaveRequests.unshift(newLeave);
-    res.status(201).json({ message: 'Leave request submitted for review.', leaveRequest: newLeave });
+    res.status(201).json({
+      message: 'Leave request submitted for review.',
+      leaveRequest: newLeave,
+      _id: newLeave._id,
+      status: newLeave.status
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -137,7 +142,12 @@ export const updateLeaveStatus = (req, res) => {
     if (adminRemarks !== undefined) leave.adminRemarks = adminRemarks;
     leave.updatedAt = new Date();
 
-    res.json({ message: `Leave request status updated to ${leave.status}.`, leaveRequest: leave });
+    res.json({
+      message: `Leave request status updated to ${leave.status}.`,
+      leaveRequest: leave,
+      _id: leave._id,
+      status: leave.status
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

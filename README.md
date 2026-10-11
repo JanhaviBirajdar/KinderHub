@@ -111,20 +111,43 @@ Open your browser at:
 
 ---
 
+## 🧪 Automated End-to-End Test Suite
+
+KinderHub includes a comprehensive 36-test integration suite covering authentication, RBAC route guards, student enrollment CRUD, admissions conversion pipeline, daily attendance logging, fee recalculation (subtotal - discounts, partial payments, remainder settlement, receipt generation), parent portal access, compliance reports, and deletion safeguards.
+
+To execute the test suite:
+```bash
+# From project root:
+npm run test:e2e
+
+# Or from server directory:
+cd server
+npm run test:e2e
+```
+
+**Expected Result:**
+```
+🏁 Total E2E Tests: 36
+✅ Passed: 36
+❌ Failed: 0
+```
+
+---
+
 ## 🔑 Demo Login Accounts
 
-KinderHub includes pre-configured demo accounts for all roles. You can click any of the 1-click test buttons on the login screen or enter the credentials below:
+KinderHub supports both standard school and simplified `.com` test accounts:
 
-| Role | Email | Password | Details |
-| :--- | :--- | :--- | :--- |
-| **Super Admin** | `admin@kinderhub.edu` | `Admin@123` | Full administrative control & reporting |
-| **School Admin** | `principal@kinderhub.edu` | `Admin@123` | Preschool operations & admissions |
-| **Lead Teacher** | `clara.teacher@kinderhub.edu` | `Teacher@123` | Playgroup head educator |
-| **Lead Teacher** | `sophia.teacher@kinderhub.edu` | `Teacher@123` | Nursery lead educator |
-| **Parent** | `sarah.parent@kinderhub.edu` | `Parent@123` | Parent of Mia Johnson & Leo Johnson |
-| **Parent** | `david.parent@kinderhub.edu` | `Parent@123` | Parent of Oliver Smith |
+| Role | Primary Email | Simplified Login | Password | Access Details |
+| :--- | :--- | :--- | :--- | :--- |
+| **Super Admin** | `admin@kinderhub.edu` | `admin@kinderhub.com` | `admin123` / `Admin@123` | Full administrative control & reporting |
+| **School Admin** | `principal@kinderhub.edu` | `admin@kinderhub.edu` | `Admin@123` | Preschool operations & admissions |
+| **Lead Teacher** | `clara.teacher@kinderhub.edu` | `clara@kinderhub.com` | `teacher123` / `Teacher@123` | Playgroup head educator |
+| **Lead Teacher** | `sophia.teacher@kinderhub.edu` | - | `Teacher@123` | Nursery lead educator |
+| **Parent** | `sarah.parent@kinderhub.edu` | `sarah@kinderhub.com` | `parent123` / `Parent@123` | Parent of Mia & Leo Johnson |
+| **Parent** | `david.parent@kinderhub.edu` | - | `Parent@123` | Parent of Oliver Smith |
 
-> **Tip**: Use the **Role** pill dropdown in the top Navbar to test all role perspectives without logging out!
+> **Tip**: You can also use the **Role** switcher pill in the top navigation bar or the 1-click preset buttons on the login screen!
 
 ---
 

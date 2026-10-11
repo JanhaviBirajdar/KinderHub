@@ -139,7 +139,9 @@ export const createChild = (req, res) => {
 
     res.status(201).json({
       message: `Child ${firstName} ${lastName} enrolled successfully with ID ${newChildId}!`,
-      child: newChild
+      child: newChild,
+      _id: newChild._id,
+      childId: newChild.childId
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

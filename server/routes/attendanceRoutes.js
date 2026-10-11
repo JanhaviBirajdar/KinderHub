@@ -7,6 +7,7 @@ const router = express.Router();
 router.use(verifyToken);
 router.get('/', getAttendanceByDateAndClass);
 router.post('/', requireRoles('super_admin', 'school_admin', 'teacher'), saveAttendance);
+router.post('/mark', requireRoles('super_admin', 'school_admin', 'teacher'), saveAttendance);
 router.get('/stats', getAttendanceStats);
 
 export default router;

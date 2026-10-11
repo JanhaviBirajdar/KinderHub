@@ -115,23 +115,26 @@ export const getDashboardSummary = (req, res) => {
     const recentAnnouncements = store.announcements.slice(0, 3);
     const upcomingEvents = store.events.slice(0, 4);
 
+    const summaryMetrics = {
+      totalChildren,
+      totalStaff,
+      todayAttendanceRate,
+      todayPresent: todayPresent || (totalChildren ? totalChildren - 1 : 0),
+      todayTotal: todayTotal || totalChildren,
+      todayLate,
+      todayAbsent,
+      todayLeave,
+      pendingFees,
+      collectedFees,
+      totalBilled,
+      pendingAdmissions,
+      classesCount: store.classes.length,
+      isTodayRecorded
+    };
+
     res.json({
-      metrics: {
-        totalChildren,
-        totalStaff,
-        todayAttendanceRate,
-        todayPresent: todayPresent || (totalChildren ? totalChildren - 1 : 0),
-        todayTotal: todayTotal || totalChildren,
-        todayLate,
-        todayAbsent,
-        todayLeave,
-        pendingFees,
-        collectedFees,
-        totalBilled,
-        pendingAdmissions,
-        classesCount: store.classes.length,
-        isTodayRecorded
-      },
+      metrics: summaryMetrics,
+      overview: summaryMetrics,
       charts: {
         attendanceWeeklyChart,
         feeCollectionChart

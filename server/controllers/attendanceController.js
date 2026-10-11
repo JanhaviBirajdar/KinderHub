@@ -83,7 +83,9 @@ export const saveAttendance = (req, res) => {
 
     res.json({
       message: `Attendance for ${date} saved successfully! (${presentCount}/${records.length} Present - ${rate}%)`,
-      attendance: attendanceDoc
+      attendance: attendanceDoc,
+      presentCount,
+      rate
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

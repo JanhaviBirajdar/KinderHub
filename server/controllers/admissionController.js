@@ -71,7 +71,9 @@ export const createAdmission = (req, res) => {
     store.admissions.unshift(newApp);
     res.status(201).json({
       message: `Admission enquiry submitted successfully with Application No: ${applicationNo}`,
-      admission: newApp
+      admission: newApp,
+      _id: newApp._id,
+      applicationNo
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -163,6 +165,8 @@ export const convertToEnrolledChild = (req, res) => {
     res.json({
       message: `Application converted to enrolled child ${newChild.firstName} (${newChildId})!`,
       child: newChild,
+      childId: newChild.childId,
+      _id: newChild._id,
       admission: app
     });
   } catch (error) {

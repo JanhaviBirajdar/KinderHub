@@ -77,7 +77,12 @@ export const createInvoice = (req, res) => {
     };
 
     store.invoices.unshift(newInvoice);
-    res.status(201).json({ message: 'Invoice created successfully!', invoice: newInvoice });
+    res.status(201).json({
+      message: 'Invoice created successfully!',
+      invoice: newInvoice,
+      _id: newInvoice._id,
+      totalAmount: newInvoice.totalAmount
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

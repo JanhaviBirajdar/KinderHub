@@ -50,3 +50,5 @@ export const requireRoles = (...roles) => {
     next();
   };
 };
+
+export const authorize = requireRoles;
