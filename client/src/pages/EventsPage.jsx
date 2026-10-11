@@ -11,7 +11,9 @@ import {
   Bus,
   Search,
   CheckCircle2,
-  Filter
+  Filter,
+  Edit3,
+  Trash2
 } from 'lucide-react';
 import { api } from '../services/api';
 import { Modal } from '../components/Modal';
@@ -57,6 +59,17 @@ export const EventsPage = () => {
     fetchEvents();
   }, []);
 
+  const [editingEvent, setEditingEvent] = useState(null);
+  const [editForm, setEditForm] = useState({
+    title: '',
+    description: '',
+    eventType: 'Celebration',
+    startDate: '2026-10-25T10:00',
+    endDate: '2026-10-25T12:00',
+    targetAudience: 'All',
+    location: 'Preschool Garden'
+  });
+
   const handleCreateEvent = async (e) => {
     e.preventDefault();
     try {
@@ -75,6 +88,42 @@ export const EventsPage = () => {
       fetchEvents();
     } catch (err) {
       toast.error(err.message);
+    }
+  };
+
+  const handleOpenEditEvent = (ev) => {
+    setEditingEvent(ev);
+    setEditForm({
+      title: ev.title || '',
+      description: ev.description || '',
+      eventType: ev.eventType || 'Celebration',
+      startDate: ev.startDate ? new Date(ev.startDate).toISOString().slice(0, 16) : '2026-10-25T10:00',
+      endDate: ev.endDate ? new Date(ev.endDate).toISOString().slice(0, 16) : '2026-10-25T12:00',
+      targetAudience: ev.targetAudience || 'All',
+      location: ev.location || 'Preschool Garden'
+    });
+  };
+
+  const handleUpdateEvent = async (e) => {
+    e.preventDefault();
+    try {
+      await api.updateEvent(editingEvent._id, editForm);
+      toast.success('Event updated successfully!');
+      setEditingEvent(null);
+      fetchEvents();
+    } catch (err) {
+      toast.error('Update failed: ' + err.message);
+    }
+  };
+
+  const handleDeleteEvent = async (id, title) => {
+    if (!window.confirm(`Are you sure you want to remove event "${title}"?`)) return;
+    try {
+      await api.deleteEvent(id);
+      toast.success('Event deleted.');
+      fetchEvents();
+    } catch (err) {
+      toast.error('Delete failed: ' + err.message);
     }
   };
 
@@ -220,7 +269,27 @@ export const EventsPage = () => {
 
                 <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
                   <span>Preschool Campus Life</span>
-                  <span className="font-bold text-purple-600">Open to families</span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-bold text-purple-600">Open to families</span>
+                    {canCreate && (
+                      <div className="flex items-center gap-1 pl-2 border-l border-slate-200">
+                        <button
+                          onClick={() => handleOpenEditEvent(ev)}
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-purple-600 hover:bg-purple-50 transition-colors"
+                          title="Edit Event"
+                        >
+                          <Edit3 className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => handleDeleteEvent(ev._id, ev.title)}
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                          title="Delete Event"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             );
@@ -333,6 +402,113 @@ export const EventsPage = () => {
           </div>
         </form>
       </Modal>
+
+      {/* Edit Event Modal */}
+      {editingEvent && (
+        <Modal isOpen={!!editingEvent} onClose={() => setEditingEvent(null)} title={`Edit Event: ${editingEvent.title}`}>
+          <form onSubmit={handleUpdateEvent} className="space-y-4 text-xs">
+            <div>
+              <label className="block font-bold text-slate-700 mb-1">Event Title *</label>
+              <input
+                type="text"
+                required
+                value={editForm.title}
+                onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
+                className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:ring-2 focus:ring-purple-400"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">Event Type</label>
+                <select
+                  value={editForm.eventType}
+                  onChange={(e) => setEditForm({ ...editForm, eventType: e.target.value })}
+                  className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:ring-2 focus:ring-purple-400"
+                >
+                  <option value="Celebration">Celebration</option>
+                  <option value="Field Trip">Field Trip</option>
+                  <option value="Parent-Teacher Meeting">Parent-Teacher Meeting</option>
+                  <option value="Holiday">Holiday</option>
+                  <option value="Sports Day">Sports Day</option>
+                </select>
+              </div>
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">Target Audience</label>
+                <select
+                  value={editForm.targetAudience}
+                  onChange={(e) => setEditForm({ ...editForm, targetAudience: e.target.value })}
+                  className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:ring-2 focus:ring-purple-400"
+                >
+                  <option value="All">All School</option>
+                  <option value="Parents">Parents Only</option>
+                  <option value="Teachers">Teachers Only</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">Start Date & Time *</label>
+                <input
+                  type="datetime-local"
+                  required
+                  value={editForm.startDate}
+                  onChange={(e) => setEditForm({ ...editForm, startDate: e.target.value })}
+                  className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:ring-2 focus:ring-purple-400"
+                />
+              </div>
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">End Date & Time *</label>
+                <input
+                  type="datetime-local"
+                  required
+                  value={editForm.endDate}
+                  onChange={(e) => setEditForm({ ...editForm, endDate: e.target.value })}
+                  className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:ring-2 focus:ring-purple-400"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block font-bold text-slate-700 mb-1">Location / Venue *</label>
+              <input
+                type="text"
+                required
+                value={editForm.location}
+                onChange={(e) => setEditForm({ ...editForm, location: e.target.value })}
+                className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:ring-2 focus:ring-purple-400"
+              />
+            </div>
+
+            <div>
+              <label className="block font-bold text-slate-700 mb-1">Description & Instructions</label>
+              <textarea
+                rows="3"
+                value={editForm.description}
+                onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
+                className="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:ring-2 focus:ring-purple-400"
+              />
+            </div>
+
+            <div className="flex justify-end gap-2 pt-3 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setEditingEvent(null)}
+                className="px-4 py-2 rounded-xl border border-slate-200 font-bold text-slate-600 hover:bg-slate-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-5 py-2 rounded-xl bg-purple-600 text-white font-bold hover:bg-purple-700 shadow-md shadow-purple-200"
+              >
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
     </div>
   );
 };

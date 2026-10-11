@@ -10,10 +10,14 @@ import {
   BookOpen, 
   Coffee, 
   Music, 
-  TreePine 
+  TreePine,
+  Plus,
+  Trash2
 } from 'lucide-react';
 import { api } from '../services/api';
 import { Badge } from '../components/Badge';
+import { Modal } from '../components/Modal';
+import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 
 export const TimetablePage = () => {
@@ -23,6 +27,17 @@ export const TimetablePage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedDay, setSelectedDay] = useState('All'); // 'All' | 'Monday' | ...
 
+  const [showAddPeriodModal, setShowAddPeriodModal] = useState(false);
+  const [targetDay, setTargetDay] = useState('Monday');
+  const [periodForm, setPeriodForm] = useState({
+    subject: 'Story Circle & Phonics',
+    startTime: '10:00 AM',
+    endTime: '10:45 AM',
+    room: 'Room 101'
+  });
+
+  const { role } = useAuth();
+  const canEdit = role === 'super_admin' || role === 'school_admin' || role === 'teacher';
   const toast = useToast();
 
   useEffect(() => {
@@ -54,6 +69,47 @@ export const TimetablePage = () => {
     };
     fetchTimetable();
   }, [selectedClassId]);
+
+  const handleAddPeriod = async (e) => {
+    e.preventDefault();
+    try {
+      const currentDaySchedule = timetables.find(t => t.dayOfWeek === targetDay);
+      const existingPeriods = currentDaySchedule?.periods || [];
+      const updatedPeriods = [...existingPeriods, periodForm];
+
+      await api.updateTimetable({
+        classId: selectedClassId,
+        dayOfWeek: targetDay,
+        periods: updatedPeriods
+      });
+      toast.success(`New period added to ${targetDay}!`);
+      setShowAddPeriodModal(false);
+      const list = await api.getTimetable(selectedClassId);
+      setTimetables(list);
+    } catch (err) {
+      toast.error('Failed to update timetable: ' + err.message);
+    }
+  };
+
+  const handleRemovePeriod = async (day, periodIdx) => {
+    if (!window.confirm('Are you sure you want to remove this schedule block?')) return;
+    try {
+      const currentDaySchedule = timetables.find(t => t.dayOfWeek === day);
+      if (!currentDaySchedule) return;
+      const updatedPeriods = currentDaySchedule.periods.filter((_, idx) => idx !== periodIdx);
+
+      await api.updateTimetable({
+        classId: selectedClassId,
+        dayOfWeek: day,
+        periods: updatedPeriods
+      });
+      toast.success('Period removed from schedule.');
+      const list = await api.getTimetable(selectedClassId);
+      setTimetables(list);
+    } catch (err) {
+      toast.error('Failed to update schedule: ' + err.message);
+    }
+  };
 
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
@@ -108,6 +164,17 @@ export const TimetablePage = () => {
               <option key={c._id} value={c._id}>{c.name} ({c.section})</option>
             ))}
           </select>
+          {canEdit && (
+            <button
+              onClick={() => {
+                setTargetDay(selectedDay === 'All' ? 'Monday' : selectedDay);
+                setShowAddPeriodModal(true);
+              }}
+              className="px-4 py-2.5 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-xs transition-colors flex items-center gap-1.5 shadow-sm active:scale-95"
+            >
+              <Plus className="w-3.5 h-3.5" /> Add Block
+            </button>
+          )}
         </div>
       </div>
 
@@ -151,9 +218,20 @@ export const TimetablePage = () => {
                   >
                     <div className="flex items-center justify-between">
                       <span className="text-xl">{getSubjectEmoji(period.subject)}</span>
-                      <span className="text-[10px] font-extrabold bg-white/90 px-2 py-0.5 rounded-md border border-slate-200/80 shadow-2xs">
-                        {period.startTime} – {period.endTime}
-                      </span>
+                      <div className="flex items-center gap-1">
+                        <span className="text-[10px] font-extrabold bg-white/90 px-2 py-0.5 rounded-md border border-slate-200/80 shadow-2xs">
+                          {period.startTime} – {period.endTime}
+                        </span>
+                        {canEdit && (
+                          <button
+                            onClick={() => handleRemovePeriod(day, idx)}
+                            className="p-1 rounded-md text-slate-400 hover:text-rose-600 hover:bg-white/80 transition-colors"
+                            title="Remove Period"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        )}
+                      </div>
                     </div>
 
                     <div>
@@ -167,6 +245,91 @@ export const TimetablePage = () => {
           );
         })}
       </div>
+
+      {/* Add Period Modal */}
+      {showAddPeriodModal && (
+        <Modal isOpen={showAddPeriodModal} onClose={() => setShowAddPeriodModal(false)} title="Add Routine Block to Schedule">
+          <form onSubmit={handleAddPeriod} className="space-y-4 text-xs">
+            <div>
+              <label className="block font-bold text-slate-700 mb-1">Day of Week</label>
+              <select
+                value={targetDay}
+                onChange={(e) => setTargetDay(e.target.value)}
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold"
+              >
+                {days.map(d => (
+                  <option key={d} value={d}>{d}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block font-bold text-slate-700 mb-1">Subject / Routine Activity *</label>
+              <input
+                type="text"
+                required
+                value={periodForm.subject}
+                onChange={(e) => setPeriodForm({ ...periodForm, subject: e.target.value })}
+                placeholder="e.g. Sensory Water Play & Bubbles"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl font-medium focus:ring-2 focus:ring-purple-400"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">Start Time</label>
+                <input
+                  type="text"
+                  required
+                  value={periodForm.startTime}
+                  onChange={(e) => setPeriodForm({ ...periodForm, startTime: e.target.value })}
+                  placeholder="09:45 AM"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl font-medium"
+                />
+              </div>
+              <div>
+                <label className="block font-bold text-slate-700 mb-1">End Time</label>
+                <input
+                  type="text"
+                  required
+                  value={periodForm.endTime}
+                  onChange={(e) => setPeriodForm({ ...periodForm, endTime: e.target.value })}
+                  placeholder="10:30 AM"
+                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl font-medium"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block font-bold text-slate-700 mb-1">Preschool Area / Room</label>
+              <input
+                type="text"
+                required
+                value={periodForm.room}
+                onChange={(e) => setPeriodForm({ ...periodForm, room: e.target.value })}
+                placeholder="Outdoor Playground / Room 101"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl font-medium"
+              />
+            </div>
+
+            <div className="flex justify-end gap-2 pt-3 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setShowAddPeriodModal(false)}
+                className="px-4 py-2.5 rounded-xl border border-slate-200 font-bold text-slate-600 hover:bg-slate-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-5 py-2.5 rounded-xl bg-purple-600 text-white font-extrabold hover:bg-purple-700 shadow-md shadow-purple-200"
+              >
+                Save Period
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
     </div>
   );
 };

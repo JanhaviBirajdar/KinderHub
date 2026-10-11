@@ -13,7 +13,8 @@ import {
   ShieldAlert,
   Calendar,
   AlertCircle,
-  Baby
+  Baby,
+  Trash2
 } from 'lucide-react';
 import { api } from '../services/api';
 import { Modal } from '../components/Modal';
@@ -158,6 +159,28 @@ export const CommunicationPage = () => {
     }
   };
 
+  const handleDeleteAnnouncement = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this campus bulletin?')) return;
+    try {
+      await api.deleteAnnouncement(id);
+      toast.success('Campus notice deleted.');
+      fetchData();
+    } catch (err) {
+      toast.error('Failed to delete notice: ' + err.message);
+    }
+  };
+
+  const handleDeleteLeave = async (id) => {
+    if (!window.confirm('Are you sure you want to remove this absence request?')) return;
+    try {
+      await api.deleteLeave(id);
+      toast.success('Leave request deleted.');
+      fetchData();
+    } catch (err) {
+      toast.error('Failed to delete leave request: ' + err.message);
+    }
+  };
+
   return (
     <div className="space-y-6 pb-12 animate-fade-in">
       {/* Header */}
@@ -263,9 +286,20 @@ export const CommunicationPage = () => {
                       Audience: {ann.targetAudience}
                     </span>
                   </div>
-                  <span className="text-[11px] text-slate-400 font-semibold">
-                    {new Date(ann.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] text-slate-400 font-semibold">
+                      {new Date(ann.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </span>
+                    {canPublishAnn && (
+                      <button
+                        onClick={() => handleDeleteAnnouncement(ann._id)}
+                        className="p-1 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                        title="Delete Announcement"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 <div>
@@ -365,22 +399,36 @@ export const CommunicationPage = () => {
                   )}
                 </div>
 
-                {canReviewLeaves && lv.status === 'Pending' && (
-                  <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
-                    <button
-                      onClick={() => handleUpdateLeaveStatus(lv._id, 'Rejected')}
-                      className="px-3.5 py-1.5 rounded-xl bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-bold transition-colors"
-                    >
-                      Decline
-                    </button>
-                    <button
-                      onClick={() => handleUpdateLeaveStatus(lv._id, 'Approved')}
-                      className="px-4 py-1.5 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 text-xs font-bold transition-colors shadow-sm"
-                    >
-                      Approve Leave
-                    </button>
+                <div className="flex items-center justify-between pt-2 border-t border-slate-100">
+                  <div>
+                    {canReviewLeaves && (
+                      <button
+                        onClick={() => handleDeleteLeave(lv._id)}
+                        className="px-2.5 py-1.5 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 text-xs font-semibold transition-colors inline-flex items-center gap-1"
+                        title="Remove Request"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" /> Delete
+                      </button>
+                    )}
                   </div>
-                )}
+
+                  {canReviewLeaves && lv.status === 'Pending' && (
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => handleUpdateLeaveStatus(lv._id, 'Rejected')}
+                        className="px-3.5 py-1.5 rounded-xl bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-bold transition-colors"
+                      >
+                        Decline
+                      </button>
+                      <button
+                        onClick={() => handleUpdateLeaveStatus(lv._id, 'Approved')}
+                        className="px-4 py-1.5 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 text-xs font-bold transition-colors shadow-sm"
+                      >
+                        Approve Leave
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             ))
           )}

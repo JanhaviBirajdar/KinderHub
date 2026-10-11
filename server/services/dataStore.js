@@ -27,6 +27,9 @@ export class DataStore {
     const defaultPasswordHash = await bcrypt.hash('Admin@123', 10);
     const teacherPasswordHash = await bcrypt.hash('Teacher@123', 10);
     const parentPasswordHash = await bcrypt.hash('Parent@123', 10);
+    const admin123Hash = await bcrypt.hash('admin123', 10);
+    const teacher123Hash = await bcrypt.hash('teacher123', 10);
+    const parent123Hash = await bcrypt.hash('parent123', 10);
 
     // 1. Initial Users
     this.users = [
@@ -35,6 +38,17 @@ export class DataStore {
         name: 'Eleanor Vance',
         email: 'admin@kinderhub.edu',
         password: defaultPasswordHash,
+        role: 'super_admin',
+        phone: '+1 (555) 019-2834',
+        avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+        status: 'active',
+        createdAt: new Date('2025-01-10')
+      },
+      {
+        _id: 'usr_001_alias',
+        name: 'Eleanor Vance',
+        email: 'admin@kinderhub.com',
+        password: admin123Hash,
         role: 'super_admin',
         phone: '+1 (555) 019-2834',
         avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
@@ -67,6 +81,20 @@ export class DataStore {
         createdAt: new Date('2025-02-01')
       },
       {
+        _id: 'usr_003_alias',
+        name: 'Clara Oswald',
+        email: 'clara@kinderhub.com',
+        password: teacher123Hash,
+        role: 'teacher',
+        phone: '+1 (555) 014-9911',
+        avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80',
+        status: 'active',
+        assignedClassId: 'cls_001',
+        designation: 'Head Teacher - Playgroup',
+        qualification: 'B.Ed in Early Childhood Education, Montessori Certified',
+        createdAt: new Date('2025-02-01')
+      },
+      {
         _id: 'usr_004',
         name: 'Sophia Bennett',
         email: 'sophia.teacher@kinderhub.edu',
@@ -85,6 +113,20 @@ export class DataStore {
         name: 'Sarah Johnson',
         email: 'sarah.parent@kinderhub.edu',
         password: parentPasswordHash,
+        role: 'parent',
+        phone: '+1 (555) 012-3456',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+        status: 'active',
+        childrenIds: ['ch_001', 'ch_002'],
+        occupation: 'Architect',
+        address: '742 Evergreen Terrace, Maple District',
+        createdAt: new Date('2025-03-01')
+      },
+      {
+        _id: 'usr_005_alias',
+        name: 'Sarah Johnson',
+        email: 'sarah@kinderhub.com',
+        password: parent123Hash,
         role: 'parent',
         phone: '+1 (555) 012-3456',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
