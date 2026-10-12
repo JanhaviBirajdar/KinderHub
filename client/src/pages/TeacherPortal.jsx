@@ -118,6 +118,70 @@ export const TeacherPortal = ({ onNavigate }) => {
         />
       </div>
 
+      {/* Innovative Feature Upgrades Deck */}
+      <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-sky-50 rounded-3xl p-6 border border-emerald-200/80 shadow-xs space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-base font-extrabold text-slate-900 font-heading flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-emerald-600" /> Educator Innovation Modules
+            </h3>
+            <p className="text-xs text-slate-500">
+              Personalized growth portfolios, multilingual family summaries, pickup verification, and play quests
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div 
+            onClick={() => onNavigate('kindergrowth')}
+            className="p-4 rounded-2xl bg-white border border-purple-100 hover:border-purple-300 shadow-2xs hover:shadow-sm cursor-pointer transition-all space-y-1.5 group"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-lg">🌱</span>
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800">5 Domains</span>
+            </div>
+            <h4 className="font-extrabold text-slate-900 text-xs font-heading group-hover:text-purple-700 transition-colors">KinderGrowth AI</h4>
+            <p className="text-[11px] text-slate-500">Continuous milestone timeline, self-comparison & AI activity suggestions.</p>
+          </div>
+
+          <div 
+            onClick={() => onNavigate('kinderconnect')}
+            className="p-4 rounded-2xl bg-white border border-teal-100 hover:border-teal-300 shadow-2xs hover:shadow-sm cursor-pointer transition-all space-y-1.5 group"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-lg">🌍</span>
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-teal-100 text-teal-800">EN / MR / HI</span>
+            </div>
+            <h4 className="font-extrabold text-slate-900 text-xs font-heading group-hover:text-teal-700 transition-colors">KinderConnect</h4>
+            <p className="text-[11px] text-slate-500">Daily routine updates, sleep/meal logs & bilingual parent summaries.</p>
+          </div>
+
+          <div 
+            onClick={() => onNavigate('kindersafe')}
+            className="p-4 rounded-2xl bg-white border border-rose-100 hover:border-rose-300 shadow-2xs hover:shadow-sm cursor-pointer transition-all space-y-1.5 group"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-lg">🛡️</span>
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">QR / OTP</span>
+            </div>
+            <h4 className="font-extrabold text-slate-900 text-xs font-heading group-hover:text-rose-700 transition-colors">KinderSafe Terminal</h4>
+            <p className="text-[11px] text-slate-500">Staff pickup verification, emergency headcount & incident logs.</p>
+          </div>
+
+          <div 
+            onClick={() => onNavigate('kinderquest')}
+            className="p-4 rounded-2xl bg-white border border-amber-100 hover:border-amber-300 shadow-2xs hover:shadow-sm cursor-pointer transition-all space-y-1.5 group"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-lg">🗺️</span>
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">Wonder Garden</span>
+            </div>
+            <h4 className="font-extrabold text-slate-900 text-xs font-heading group-hover:text-amber-700 transition-colors">KinderQuest Play</h4>
+            <p className="text-[11px] text-slate-500">Play-based learning quests, shape sorting & take-home activities.</p>
+          </div>
+        </div>
+      </div>
+
       {/* Roster & Quick Observations */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Enrolled Students Quick View */}

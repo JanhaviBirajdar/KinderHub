@@ -18,6 +18,12 @@ import scheduleRoutes from './routes/scheduleRoutes.js';
 import communicationRoutes from './routes/communicationRoutes.js';
 import dashboardRoutes from './routes/dashboardRoutes.js';
 import reportRoutes from './routes/reportRoutes.js';
+import kinderGrowthRoutes from './routes/kinderGrowthRoutes.js';
+import kinderConnectRoutes from './routes/kinderConnectRoutes.js';
+import kinderSafeRoutes from './routes/kinderSafeRoutes.js';
+import kinderQuestRoutes from './routes/kinderQuestRoutes.js';
+import kinderOfflineRoutes from './routes/kinderOfflineRoutes.js';
+import kinderPredictRoutes from './routes/kinderPredictRoutes.js';
 
 dotenv.config();
 
@@ -63,6 +69,14 @@ app.use('/api/schedule', scheduleRoutes);
 app.use('/api/communication', communicationRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/reports', reportRoutes);
+
+// Innovative Preschool Modules
+app.use('/api/kindergrowth', kinderGrowthRoutes);
+app.use('/api/kinderconnect', kinderConnectRoutes);
+app.use('/api/kindersafe', kinderSafeRoutes);
+app.use('/api/kinderquest', kinderQuestRoutes);
+app.use('/api/kinderoffline', kinderOfflineRoutes);
+app.use('/api/kinderpredict', kinderPredictRoutes);
 
 // Centralized Error Handler
 app.use((err, req, res, next) => {

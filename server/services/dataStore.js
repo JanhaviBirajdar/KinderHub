@@ -18,6 +18,16 @@ export class DataStore {
     this.announcements = [];
     this.messages = [];
     this.leaveRequests = [];
+    this.observations = [];
+    this.aiSuggestions = [];
+    this.monthlySummaries = [];
+    this.dailyTimelines = [];
+    this.pickupPasses = [];
+    this.safetyIncidents = [];
+    this.safetyAuditLogs = [];
+    this.questJourneys = [];
+    this.privacySettings = {};
+    this.resolvedAlerts = {};
     this.isInitialized = false;
   }
 
@@ -1033,6 +1043,363 @@ export class DataStore {
         createdAt: new Date('2026-10-11')
       }
     ];
+
+    // 16. KinderGrowth AI: 5-Domain Observations
+    this.observations = [
+      {
+        _id: 'obs_001',
+        childId: 'ch_001',
+        childName: 'Mia Johnson',
+        date: todayStr,
+        domain: 'creativity',
+        score: 5,
+        milestoneTitle: 'Autumn Leaf & Texture Watercolor Blending',
+        notes: 'Mia showed delightful focus selecting yellow and green paints, experimenting with wet-on-wet leaf pressings.',
+        activityId: 'act_001',
+        activityTitle: 'Autumn Sensory Leaf & Pinecone Collage',
+        observedByRole: 'teacher',
+        observedById: 'usr_003',
+        observedByName: 'Clara Oswald (Teacher)',
+        context: 'classroom',
+        photo: 'https://images.unsplash.com/photo-1596495578065-6e0763fa1178?w=300&auto=format&fit=crop&q=80',
+        isHomeObservation: false,
+        createdAt: new Date()
+      },
+      {
+        _id: 'obs_002',
+        childId: 'ch_001',
+        childName: 'Mia Johnson',
+        date: yesterdayStr,
+        domain: 'language',
+        score: 5,
+        milestoneTitle: 'Expressive Story Retelling & Rhyming',
+        notes: 'Retold the story of the lost hedgehog using complete descriptive sentences and mimicked animal sounds with laughter.',
+        activityId: 'act_002',
+        activityTitle: 'Story Circle & Phonic Rhymes',
+        observedByRole: 'teacher',
+        observedById: 'usr_003',
+        observedByName: 'Clara Oswald (Teacher)',
+        context: 'story_circle',
+        isHomeObservation: false,
+        createdAt: new Date(Date.now() - 86400000)
+      },
+      {
+        _id: 'obs_003',
+        childId: 'ch_001',
+        childName: 'Mia Johnson',
+        date: '2026-10-09',
+        domain: 'socialEmotional',
+        score: 4,
+        milestoneTitle: 'Empathetic Sharing during Block Play',
+        notes: 'Noticed Leo was looking for a blue foam block and gently walked over to offer hers with a smile.',
+        activityTitle: 'Collaborative Building Center',
+        observedByRole: 'teacher',
+        observedById: 'usr_003',
+        observedByName: 'Clara Oswald (Teacher)',
+        context: 'classroom',
+        isHomeObservation: false,
+        createdAt: new Date('2026-10-09')
+      },
+      {
+        _id: 'obs_004',
+        childId: 'ch_001',
+        childName: 'Mia Johnson',
+        date: '2026-10-08',
+        domain: 'motorSkills',
+        score: 4,
+        milestoneTitle: 'Single-Foot Hop & Balance Beam Walking',
+        notes: 'Hopped across three star mats with steady balance without stepping off.',
+        activityId: 'act_003',
+        activityTitle: 'Rainbow Obstacle Course',
+        observedByRole: 'teacher',
+        observedById: 'usr_003',
+        observedByName: 'Clara Oswald (Teacher)',
+        context: 'playground',
+        isHomeObservation: false,
+        createdAt: new Date('2026-10-08')
+      },
+      {
+        _id: 'obs_005',
+        childId: 'ch_001',
+        childName: 'Mia Johnson',
+        date: '2026-10-06',
+        domain: 'cognitive',
+        score: 5,
+        milestoneTitle: '12-Piece Wooden Animal Puzzle Mastery',
+        notes: 'Autonomously oriented and fitted puzzle pieces by observing edge shapes and color clues.',
+        activityTitle: 'Discovery Table',
+        observedByRole: 'teacher',
+        observedById: 'usr_003',
+        observedByName: 'Clara Oswald (Teacher)',
+        context: 'classroom',
+        isHomeObservation: false,
+        createdAt: new Date('2026-10-06')
+      },
+      {
+        _id: 'obs_006',
+        childId: 'ch_001',
+        childName: 'Mia Johnson',
+        date: '2026-10-10',
+        domain: 'language',
+        score: 5,
+        milestoneTitle: 'Bedtime Book Narration (Home Observation)',
+        notes: 'Mia read her favorite picture book to her teddy bear before sleep, pointing out the moon and stars accurately!',
+        activityTitle: 'Home Evening Reading',
+        observedByRole: 'parent',
+        observedById: 'usr_005',
+        observedByName: 'Sarah Johnson (Mother)',
+        context: 'home',
+        isHomeObservation: true,
+        createdAt: new Date('2026-10-10')
+      },
+      {
+        _id: 'obs_007',
+        childId: 'ch_002',
+        childName: 'Leo Johnson',
+        date: todayStr,
+        domain: 'motorSkills',
+        score: 5,
+        milestoneTitle: 'Tunnel Crawl & Foam Log Climbing',
+        notes: 'Showed great gross motor agility and spatial navigation on the gym obstacle path.',
+        activityId: 'act_003',
+        activityTitle: 'Rainbow Obstacle Course',
+        observedByRole: 'teacher',
+        observedById: 'usr_004',
+        observedByName: 'Sophia Bennett (Teacher)',
+        context: 'playground',
+        isHomeObservation: false,
+        createdAt: new Date()
+      }
+    ];
+
+    // 17. KinderGrowth AI: Activity Suggestions
+    this.aiSuggestions = [
+      {
+        _id: 'sug_001',
+        childId: 'ch_001',
+        childName: 'Mia Johnson',
+        domain: 'motorSkills',
+        suggestedTitle: 'Ergonomic Tweezer & Dried Bean Sorting',
+        description: 'Provide large child-safe plastic tweezers to sort dried kidney beans and chickpeas into wooden muffin cups.',
+        rationale: 'Scaffolds precision pincer grasp and hand arches to support emerging tripod pencil grip.',
+        materials: 'Large plastic tweezers, wooden muffin tray, dried non-toxic beans',
+        ageGroup: 'Playgroup (2-3 Yrs)',
+        status: 'approved',
+        teacherNotes: 'Great sensory motor extension. Will set up at Sensory Table 2 tomorrow.',
+        approvedById: 'usr_003',
+        approvedByName: 'Clara Oswald',
+        approvedAt: new Date(),
+        isAiGenerated: true,
+        disclaimer: 'AI-generated pedagogical suggestion. Approved by Lead Educator.',
+        createdAt: new Date('2026-10-10')
+      },
+      {
+        _id: 'sug_002',
+        childId: 'ch_001',
+        childName: 'Mia Johnson',
+        domain: 'socialEmotional',
+        suggestedTitle: 'Empathy Puppet Clinic & Caring Circle',
+        description: 'Roleplay tending to a toy puppy with soft bandages and comforting phrases.',
+        rationale: 'Builds upon Mia\'s natural kindness observed during block sharing to explore verbal emotional comfort.',
+        materials: 'Plush toy animals, fabric bandage strips, toy stethoscope',
+        ageGroup: 'Playgroup (2-3 Yrs)',
+        status: 'pending_review',
+        teacherNotes: '',
+        isAiGenerated: true,
+        disclaimer: 'AI-generated pedagogical suggestion. Requires Lead Educator approval before assignment.',
+        createdAt: new Date('2026-10-11')
+      }
+    ];
+
+    // 18. KinderGrowth AI: Monthly Summaries
+    this.monthlySummaries = [
+      {
+        _id: 'msum_001',
+        childId: 'ch_001',
+        childName: 'Mia Johnson',
+        monthYear: 'October 2026',
+        summaryText: 'Mia has had a radiant month full of sensory exploration, joyful conversational sharing, and steady gross-motor balance advancement. Her confidence in creative self-expression is a beacon of happiness in the classroom.',
+        strengths: [
+          'High expressive vocabulary and narrative retelling enthusiasm.',
+          'Gentle empathy and toy sharing during free play centers.',
+          'Vibrant color blending curiosity in arts and crafts.'
+        ],
+        growthAreas: [
+          'Continuing to refine fine pincer coordination through tweezer and threading play.'
+        ],
+        status: 'published',
+        publishedAt: new Date('2026-10-11'),
+        publishedById: 'usr_003',
+        publishedByName: 'Clara Oswald'
+      }
+    ];
+
+    // 19. KinderConnect: Daily Routine Timeline Logs
+    this.dailyTimelines = [
+      {
+        _id: 'dtl_001',
+        childId: 'ch_001',
+        childName: 'Mia Johnson',
+        date: todayStr,
+        teacherId: 'usr_003',
+        teacherName: 'Clara Oswald',
+        mood: 'Joyful',
+        meals: {
+          morningSnack: 'Ate all fresh apple slices and organic carrot sticks',
+          lunch: 'Finished whole wheat vegetable roti and warm lentil stew',
+          afternoonSnack: 'Warm almond milk and oatmeal biscuit',
+          hydration: 'Good (4 water cups filled and finished)'
+        },
+        nap: {
+          durationMinutes: 45,
+          quality: 'Restful'
+        },
+        activities: [
+          { time: '09:30 AM', title: 'Morning Song & Greeting Circle', description: 'Sang greeting song with joyful hand claps.', category: 'Music' },
+          { time: '11:00 AM', title: 'Autumn Sensory Leaf Press', description: 'Blended yellow and green paints onto paper.', category: 'Creative' },
+          { time: '02:00 PM', title: 'Outdoor Obstacle Stepping Stones', description: 'Hopped across colorful star mats with steady balance.', category: 'Gross Motor' }
+        ],
+        photos: [
+          { url: 'https://images.unsplash.com/photo-1596495578065-6e0763fa1178?w=400&auto=format&fit=crop&q=80', caption: 'Mia exploring colorful autumn leaf prints!', approvedForParents: true }
+        ],
+        notes: 'Mia was radiant today! She proudly showed her green watercolor leaf to everyone during circle time.',
+        parentFriendlyDigest: {
+          en: `🌟 Hello! Today was a wonderful day for Mia Johnson. She arrived feeling very joyful and cheerful. During snack and lunch, she ate nicely (finished vegetable roti and apple slices). At naptime, she rested calmly for 45 minutes. In our activities, Mia showed great curiosity blending paints and hopping across star mats. Wishing you a warm evening together! ❤️`,
+          mr: `🌟 नमस्कार! आजचा दिवस मियासाठी अतिशय आनंदाचा आणि उत्साहाचा राहिला. वर्गात आल्यापासून ती खूप आनंदी होती. दुपारचे पौष्टिक जेवण तिने आवडीने खाल्ले आणि ४५ मिनिटे शांत विश्रांती घेतली. पानांचे रंगकाम करताना आणि खेळाच्या मैदानावर तिने खूप छान आनंद घेतला. घरी मियाशी आजच्या दिवसाबद्दल प्रेमळ गप्पा मारा! ❤️`,
+          hi: `🌟 नमस्ते! आज का दिन मिया के लिए बहुत ही खुशनुमा और सीखने से भरा रहा। वह पूरे दिन बहुत प्रसन्न और ऊर्जावान रही। दोपहर का पौष्टिक भोजन पूरा खाया और 45 मिनट की आरामदायक नींद ली। दोस्तों के साथ रंगों और खेलकूद में बहुत उत्साह दिखाया। घर पर मिया के साथ आज के पलों को साझा करें और स्नेह दें! ❤️`
+        },
+        homeActivityRecommendations: [
+          {
+            title: 'Bedtime Shadow Puppets with Mia',
+            instruction: 'Use a flashlight against the bedroom wall to make rabbit ears and tell a sweet bedtime story.',
+            domain: 'Imagination & Language'
+          },
+          {
+            title: 'Color Spotting in the Kitchen',
+            instruction: 'Ask Mia to spot 3 green items (spinach, cucumber, cup) while helping prepare dinner.',
+            domain: 'Cognitive Observation'
+          }
+        ],
+        parentFeedback: [
+          {
+            parentId: 'usr_005',
+            parentName: 'Sarah Johnson (Mother)',
+            message: 'Thank you Clara! She talked about the green leaf prints all the way home in the car. We love this update! ❤️',
+            reaction: '❤️',
+            createdAt: new Date()
+          }
+        ],
+        readByParents: [
+          { userId: 'usr_005', userName: 'Sarah Johnson', readAt: new Date() }
+        ],
+        createdAt: new Date()
+      }
+    ];
+
+    // 20. KinderSafe: Authorized Pickups & Pass Records
+    this.pickupPasses = [
+      {
+        _id: 'pass_001',
+        passCode: 'PASS-892101',
+        childId: 'ch_001',
+        childName: 'Mia Johnson',
+        className: 'Playgroup (Butterflies)',
+        guardianName: 'Sarah Johnson',
+        guardianRelation: 'Mother',
+        guardianPhone: '+1 (555) 012-3456',
+        guardianPhoto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+        otp: '492815',
+        qrData: '{"code":"PASS-892101","childId":"ch_001","guardian":"Sarah Johnson"}|sig:7a9f82d1c0b3',
+        signature: '7a9f82d1c0b3',
+        validFrom: new Date(),
+        expiresAt: new Date(Date.now() + 4 * 3600 * 1000), // Valid for 4 hours
+        status: 'active',
+        isAuthorizedContact: true,
+        generatedByName: 'Sarah Johnson (Parent)',
+        auditLog: [
+          {
+            action: 'Pass Generated',
+            timestamp: new Date(),
+            performedByName: 'Sarah Johnson',
+            details: 'Digital pickup pass generated via Parent Portal with 6-digit OTP 492815.'
+          }
+        ],
+        createdAt: new Date()
+      },
+      {
+        _id: 'pass_002',
+        passCode: 'PASS-892090',
+        childId: 'ch_003',
+        childName: 'Oliver Smith',
+        className: 'Playgroup (Butterflies)',
+        guardianName: 'Emily Smith',
+        guardianRelation: 'Mother',
+        guardianPhone: '+1 (555) 015-7892',
+        guardianPhoto: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80',
+        otp: '182394',
+        qrData: '{"code":"PASS-892090","childId":"ch_003"}|sig:3f98a2c1',
+        validFrom: new Date(Date.now() - 7200000),
+        expiresAt: new Date(Date.now() + 7200000),
+        status: 'verified_completed',
+        verifiedAt: new Date(Date.now() - 1800000),
+        verifiedById: 'usr_003',
+        verifiedByName: 'Clara Oswald',
+        handoverNotes: 'Physical photo ID checked. Oliver safely released to mother.',
+        auditLog: [
+          { action: 'Pass Generated', timestamp: new Date(Date.now() - 7200000), performedByName: 'David Smith', details: 'Pass generated' },
+          { action: 'Pickup Completed & Verified', timestamp: new Date(Date.now() - 1800000), performedByName: 'Clara Oswald', details: 'Handover complete' }
+        ],
+        createdAt: new Date(Date.now() - 7200000)
+      }
+    ];
+
+    // 21. KinderSafe: Safety Incidents
+    this.safetyIncidents = [
+      {
+        _id: 'inc_001',
+        incidentId: 'INC-2026-001',
+        childId: 'ch_007',
+        childName: 'Ethan Miller',
+        className: 'Playgroup (Butterflies)',
+        date: yesterdayStr,
+        time: '11:15 AM',
+        severity: 'Low',
+        category: 'Minor Scrape/Fall',
+        location: 'Playground soft mulch zone',
+        description: 'Ethan tripped over foam stepping log while running and grazed left knee.',
+        actionsTaken: 'Wound cleaned with sterile saline wash, soothing dinosaur bandage applied, and rested with cool water.',
+        firstAidAdministered: true,
+        parentContacted: true,
+        parentContactTime: '11:25 AM',
+        followUpStatus: 'Resolved',
+        followUpNotes: 'Ethan resumed energetic block play 10 minutes later. Guardian thanked staff at dismissal.',
+        reportedByName: 'Clara Oswald (Teacher)',
+        createdAt: new Date(Date.now() - 86400000)
+      }
+    ];
+
+    // 22. KinderSafe: Global Safety Audit Logs
+    this.safetyAuditLogs = [
+      {
+        _id: 'sal_001',
+        actionType: 'EMERGENCY_DRILL_HEADING',
+        details: 'Quarterly Autumn Fire & Safety Drill completed. 100% headcount verified against Live Accountability in 2 mins 45 secs.',
+        timestamp: new Date('2026-10-08T10:30:00Z')
+      },
+      {
+        _id: 'sal_002',
+        actionType: 'CHILD_PICKUP_CONFIRMED',
+        details: 'Oliver Smith safely handed over to verified guardian Emily Smith by Clara Oswald.',
+        timestamp: new Date(Date.now() - 1800000)
+      }
+    ];
+
+    // 23. Child Privacy & Consent Settings
+    this.privacySettings = {
+      ch_001: { allowPhotos: true, allowObservationSharing: true, retentionConsentGranted: true },
+      ch_002: { allowPhotos: true, allowObservationSharing: true, retentionConsentGranted: true },
+      ch_003: { allowPhotos: true, allowObservationSharing: true, retentionConsentGranted: true }
+    };
 
     this.isInitialized = true;
     console.log('🌈 KinderHub In-Memory Data Store fully populated with rich preschool demo data!');

@@ -158,22 +158,28 @@ export const ParentPortal = ({ onNavigate }) => {
 
           <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
             <button
-              onClick={() => onNavigate('attendance')}
-              className="flex-1 sm:flex-none px-4 py-2.5 rounded-2xl bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold text-xs transition-colors flex items-center justify-center gap-1.5"
+              onClick={() => onNavigate('kindergrowth')}
+              className="flex-1 sm:flex-none px-4 py-2.5 rounded-2xl bg-purple-100 hover:bg-purple-200 text-purple-800 font-extrabold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-2xs"
             >
-              <CalendarCheck className="w-4 h-4 text-purple-600" /> Attendance Roster
+              <Sparkles className="w-4 h-4 text-purple-700" /> Growth Journey AI
             </button>
             <button
-              onClick={() => onNavigate('messages')}
-              className="flex-1 sm:flex-none px-4 py-2.5 rounded-2xl bg-pink-50 hover:bg-pink-100 text-pink-700 font-bold text-xs transition-colors flex items-center justify-center gap-1.5"
+              onClick={() => onNavigate('kinderconnect')}
+              className="flex-1 sm:flex-none px-4 py-2.5 rounded-2xl bg-teal-100 hover:bg-teal-200 text-teal-800 font-extrabold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-2xs"
             >
-              <MessageSquare className="w-4 h-4 text-pink-600" /> Message Teacher
+              <Heart className="w-4 h-4 text-teal-700" /> Daily Updates (MR/HI)
             </button>
             <button
-              onClick={() => onNavigate('leave_requests')}
-              className="flex-1 sm:flex-none px-4 py-2.5 rounded-2xl bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs transition-colors flex items-center justify-center gap-1.5"
+              onClick={() => onNavigate('kindersafe')}
+              className="flex-1 sm:flex-none px-4 py-2.5 rounded-2xl bg-rose-100 hover:bg-rose-200 text-rose-800 font-extrabold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-2xs"
             >
-              <Plus className="w-4 h-4 text-orange-600" /> Apply Leave
+              <ShieldAlert className="w-4 h-4 text-rose-700" /> Pickup Pass / OTP
+            </button>
+            <button
+              onClick={() => onNavigate('kinderquest')}
+              className="flex-1 sm:flex-none px-4 py-2.5 rounded-2xl bg-amber-100 hover:bg-amber-200 text-amber-800 font-extrabold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-2xs"
+            >
+              <Sun className="w-4 h-4 text-amber-700" /> Wonder Quests
             </button>
           </div>
         </div>

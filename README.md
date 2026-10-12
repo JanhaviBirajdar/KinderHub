@@ -1,9 +1,3 @@
-# 🧸 KinderHub – Preschool Management System
-
-A full-stack, responsive web application designed for preschools, daycares, and early childhood academies. **KinderHub** connects School Administrators, Lead Educators, Parents, and Children in an intuitive, pastel-themed environment.
-
----
-
 ## 🌟 Key Highlights & Modules
 
 ### 1. 🛡️ Role-Based Access Control (RBAC)

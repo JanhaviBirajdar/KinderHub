@@ -17,7 +17,11 @@ import {
   TrendingUp,
   MapPin,
   Clock,
-  Sparkle
+  Sparkle,
+  Zap,
+  Languages,
+  ShieldCheck,
+  Map
 } from 'lucide-react';
 import { 
   AreaChart, 
@@ -175,6 +179,76 @@ export const AdminDashboard = ({ onNavigate }) => {
           color="peach"
           trend={{ value: 'Reconciled', isPositive: true }}
         />
+      </div>
+
+      {/* Preschool Innovation Hub Deck */}
+      <div className="bg-gradient-to-r from-purple-50 via-pink-50 to-amber-50 rounded-3xl p-6 sm:p-7 border border-purple-200/80 shadow-xs space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h3 className="text-base font-extrabold text-slate-900 font-heading flex items-center gap-2">
+              <Sparkles className="w-4.5 h-4.5 text-purple-600" /> KinderHub Innovation Architecture
+            </h3>
+            <p className="text-xs text-slate-500">
+              Proactive operational intelligence, personalized AI growth portfolios, multilingual family digests & safety verification
+            </p>
+          </div>
+          <button
+            onClick={() => onNavigate('kinderpredict')}
+            className="px-4 py-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:opacity-95 text-white font-extrabold text-xs rounded-xl shadow-xs flex items-center gap-1.5 self-start sm:self-auto"
+          >
+            <Zap className="w-3.5 h-3.5" /> Launch KinderPredict Engine
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div 
+            onClick={() => onNavigate('kindergrowth')}
+            className="p-4.5 rounded-2xl bg-white border border-purple-100 hover:border-purple-300 shadow-2xs hover:shadow-sm cursor-pointer transition-all space-y-1.5 group"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-xl">🌱</span>
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800">AI Portfolios</span>
+            </div>
+            <h4 className="font-extrabold text-slate-900 text-xs font-heading group-hover:text-purple-700 transition-colors">KinderGrowth AI</h4>
+            <p className="text-[11px] text-slate-500">5-domain milestone timeline, self-comparison radar chart & educator-approved AI suggestions.</p>
+          </div>
+
+          <div 
+            onClick={() => onNavigate('kinderconnect')}
+            className="p-4.5 rounded-2xl bg-white border border-teal-100 hover:border-teal-300 shadow-2xs hover:shadow-sm cursor-pointer transition-all space-y-1.5 group"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-xl">🌍</span>
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-teal-100 text-teal-800">EN / MR / HI</span>
+            </div>
+            <h4 className="font-extrabold text-slate-900 text-xs font-heading group-hover:text-teal-700 transition-colors">KinderConnect</h4>
+            <p className="text-[11px] text-slate-500">Bilingual parent daily updates in Marathi & Hindi, meals, naps & photo privacy controls.</p>
+          </div>
+
+          <div 
+            onClick={() => onNavigate('kindersafe')}
+            className="p-4.5 rounded-2xl bg-white border border-rose-100 hover:border-rose-300 shadow-2xs hover:shadow-sm cursor-pointer transition-all space-y-1.5 group"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-xl">🛡️</span>
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">QR / OTP Pass</span>
+            </div>
+            <h4 className="font-extrabold text-slate-900 text-xs font-heading group-hover:text-rose-700 transition-colors">KinderSafe Protocol</h4>
+            <p className="text-[11px] text-slate-500">Time-limited pickup pass, staff verification terminal, emergency checklist & incidents.</p>
+          </div>
+
+          <div 
+            onClick={() => onNavigate('kinderquest')}
+            className="p-4.5 rounded-2xl bg-white border border-amber-100 hover:border-amber-300 shadow-2xs hover:shadow-sm cursor-pointer transition-all space-y-1.5 group"
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-xl">🗺️</span>
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">Wonder Garden</span>
+            </div>
+            <h4 className="font-extrabold text-slate-900 text-xs font-heading group-hover:text-amber-700 transition-colors">KinderQuest Play</h4>
+            <p className="text-[11px] text-slate-500">Play-based early learning journey, interactive quests & screen-free offline extensions.</p>
+          </div>
+        </div>
       </div>
 
       {/* Analytics Charts Grid */}

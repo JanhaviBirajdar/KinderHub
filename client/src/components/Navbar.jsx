@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
+import { OfflineStatusIndicator } from './OfflineStatusIndicator';
 
 export const Navbar = ({ onToggleSidebar, onSearchQuery }) => {
   const { user, role, switchRole } = useAuth();
@@ -88,6 +89,9 @@ export const Navbar = ({ onToggleSidebar, onSearchQuery }) => {
           >
             <Search className="w-4 h-4" />
           </button>
+
+          {/* Offline Persistence & Live Sync Status */}
+          <OfflineStatusIndicator />
 
           {/* Quick Demo Role Switcher Dropdown */}
           <div className="relative">

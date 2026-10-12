@@ -19,7 +19,11 @@ import {
   UserCheck,
   Award,
   X,
-  ChevronRight
+  ChevronRight,
+  ShieldCheck,
+  Languages,
+  Map,
+  Zap
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -37,6 +41,15 @@ export const Sidebar = ({ activeTab, setActiveTab, isOpen, setIsOpen }) => {
             { id: 'children', label: 'My Children', icon: Baby },
             { id: 'attendance', label: 'Attendance', icon: CalendarCheck },
             { id: 'fees', label: 'Fees & Receipts', icon: CreditCard },
+          ]
+        },
+        {
+          title: 'Innovative Features',
+          items: [
+            { id: 'kindergrowth', label: 'KinderGrowth AI', icon: Sparkles, badge: 'AI Journey', badgeColor: 'bg-purple-100 text-purple-800' },
+            { id: 'kinderconnect', label: 'KinderConnect', icon: Languages, badge: 'Multilingual', badgeColor: 'bg-teal-100 text-teal-800' },
+            { id: 'kindersafe', label: 'KinderSafe Passes', icon: ShieldCheck, badge: 'QR & OTP', badgeColor: 'bg-rose-100 text-rose-800' },
+            { id: 'kinderquest', label: 'KinderQuest Play', icon: Map, badge: 'Garden', badgeColor: 'bg-amber-100 text-amber-800' },
           ]
         },
         {
@@ -71,6 +84,16 @@ export const Sidebar = ({ activeTab, setActiveTab, isOpen, setIsOpen }) => {
           ]
         },
         {
+          title: 'Innovative Innovations',
+          items: [
+            { id: 'kindergrowth', label: 'KinderGrowth AI', icon: Sparkles, badge: 'AI Portfolios', badgeColor: 'bg-purple-100 text-purple-800' },
+            { id: 'kinderconnect', label: 'KinderConnect Daily', icon: Languages, badge: 'MR / HI', badgeColor: 'bg-teal-100 text-teal-800' },
+            { id: 'kindersafe', label: 'KinderSafe Terminal', icon: ShieldCheck, badge: 'Verification', badgeColor: 'bg-rose-100 text-rose-800' },
+            { id: 'kinderquest', label: 'KinderQuest Quests', icon: Map, badge: 'Quests', badgeColor: 'bg-amber-100 text-amber-800' },
+            { id: 'kinderpredict', label: 'KinderPredict Alerts', icon: Zap, badge: 'Action', badgeColor: 'bg-orange-100 text-orange-800' },
+          ]
+        },
+        {
           title: 'Curriculum & Growth',
           items: [
             { id: 'activities', label: 'Sensory Activities', icon: Sparkles },
@@ -95,7 +118,17 @@ export const Sidebar = ({ activeTab, setActiveTab, isOpen, setIsOpen }) => {
         title: 'Overview',
         items: [
           { id: 'admin_dashboard', label: 'Dashboard', icon: LayoutDashboard },
+          { id: 'kinderpredict', label: 'KinderPredict Engine', icon: Zap, badge: 'Action Rules', badgeColor: 'bg-orange-100 text-orange-800' },
           { id: 'admissions', label: 'Admissions Pipeline', icon: ClipboardList, badge: '4', badgeColor: 'bg-amber-100 text-amber-800' },
+        ]
+      },
+      {
+        title: 'Innovative Modules',
+        items: [
+          { id: 'kindergrowth', label: 'KinderGrowth AI', icon: Sparkles, badge: 'Portfolios', badgeColor: 'bg-purple-100 text-purple-800' },
+          { id: 'kinderconnect', label: 'KinderConnect Hub', icon: Languages, badge: 'Multilingual', badgeColor: 'bg-teal-100 text-teal-800' },
+          { id: 'kindersafe', label: 'KinderSafe Pickups', icon: ShieldCheck, badge: 'Safety & QR', badgeColor: 'bg-rose-100 text-rose-800' },
+          { id: 'kinderquest', label: 'KinderQuest Journey', icon: Map, badge: 'Play', badgeColor: 'bg-amber-100 text-amber-800' },
         ]
       },
       {

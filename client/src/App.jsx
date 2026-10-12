@@ -21,6 +21,11 @@ import { ReportsPage } from './pages/ReportsPage';
 import { TeacherPortal } from './pages/TeacherPortal';
 import { ParentPortal } from './pages/ParentPortal';
 import { ProfilePage } from './pages/ProfilePage';
+import { KinderGrowthPage } from './pages/KinderGrowthPage';
+import { KinderConnectPage } from './pages/KinderConnectPage';
+import { KinderSafePage } from './pages/KinderSafePage';
+import { KinderQuestPage } from './pages/KinderQuestPage';
+import { KinderPredictPage } from './pages/KinderPredictPage';
 
 export function App() {
   const { user, token, role, loading, switchRole } = useAuth();
@@ -108,6 +113,16 @@ export function App() {
         return <ReportsPage />;
       case 'profile':
         return <ProfilePage />;
+      case 'kindergrowth':
+        return <KinderGrowthPage />;
+      case 'kinderconnect':
+        return <KinderConnectPage />;
+      case 'kindersafe':
+        return <KinderSafePage />;
+      case 'kinderquest':
+        return <KinderQuestPage />;
+      case 'kinderpredict':
+        return <KinderPredictPage />;
       default:
         return <AdminDashboard onNavigate={(tab) => setActiveTab(tab)} />;
     }

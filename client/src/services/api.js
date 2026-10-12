@@ -127,5 +127,47 @@ export const api = {
   deleteLeave: (id) => request(`/communication/leaves/${id}`, { method: 'DELETE' }),
 
   // Reports
-  getReports: (type) => request(`/reports?type=${type}`)
+  getReports: (type) => request(`/reports?type=${type}`),
+
+  // FEATURE 1: KinderGrowth AI
+  getGrowthProfile: (childId) => request(`/kindergrowth/profile/${childId}`),
+  getObservations: (params = {}) => {
+    const q = new URLSearchParams(params).toString();
+    return request(`/kindergrowth/observations${q ? `?${q}` : ''}`);
+  },
+  createObservation: (data) => request('/kindergrowth/observations', { method: 'POST', body: JSON.stringify(data) }),
+  generateAiSuggestions: (childId) => request('/kindergrowth/ai-suggestions', { method: 'POST', body: JSON.stringify({ childId }) }),
+  reviewAiSuggestion: (id, data) => request(`/kindergrowth/ai-suggestions/${id}/review`, { method: 'PATCH', body: JSON.stringify(data) }),
+  getMonthlySummary: (childId) => request(`/kindergrowth/monthly-summary/${childId}`),
+  publishMonthlySummary: (childId, data) => request(`/kindergrowth/monthly-summary/${childId}/publish`, { method: 'POST', body: JSON.stringify(data) }),
+
+  // FEATURE 2: KinderConnect
+  getDailyTimeline: (childId, date) => request(`/kinderconnect/timeline/${childId}${date ? `?date=${encodeURIComponent(date)}` : ''}`),
+  createDailyLog: (data) => request('/kinderconnect/daily-log', { method: 'POST', body: JSON.stringify(data) }),
+  translateMessage: (data) => request('/kinderconnect/translate', { method: 'POST', body: JSON.stringify(data) }),
+  submitParentFeedback: (data) => request('/kinderconnect/feedback', { method: 'POST', body: JSON.stringify(data) }),
+  updatePrivacySettings: (childId, data) => request(`/kinderconnect/privacy/${childId}`, { method: 'PUT', body: JSON.stringify(data) }),
+
+  // FEATURE 3: KinderSafe
+  getGuardiansAndSafety: (childId) => request(`/kindersafe/guardians/${childId}`),
+  generatePickupPass: (data) => request('/kindersafe/passes/generate', { method: 'POST', body: JSON.stringify(data) }),
+  verifyPickupPass: (data) => request('/kindersafe/passes/verify', { method: 'POST', body: JSON.stringify(data) }),
+  confirmPickupHandover: (data) => request('/kindersafe/passes/confirm', { method: 'POST', body: JSON.stringify(data) }),
+  getPickupAuditHistory: () => request('/kindersafe/audit-history'),
+  getEmergencyAccountability: () => request('/kindersafe/emergency-accountability'),
+  getIncidents: () => request('/kindersafe/incidents'),
+  createIncident: (data) => request('/kindersafe/incidents', { method: 'POST', body: JSON.stringify(data) }),
+  updateIncident: (id, data) => request(`/kindersafe/incidents/${id}`, { method: 'PATCH', body: JSON.stringify(data) }),
+
+  // FEATURE 4: KinderQuest
+  getQuestJourney: (childId) => request(`/kinderquest/journey/${childId}`),
+  completeQuestActivity: (data) => request('/kinderquest/complete-activity', { method: 'POST', body: JSON.stringify(data) }),
+  unlockChapter: (data) => request('/kinderquest/unlock-chapter', { method: 'PATCH', body: JSON.stringify(data) }),
+
+  // FEATURE 5: KinderOffline
+  syncOfflineQueue: (queuedOperations) => request('/kinderoffline/sync', { method: 'POST', body: JSON.stringify({ queuedOperations }) }),
+
+  // FEATURE 6: KinderPredict
+  getPredictiveAlerts: () => request('/kinderpredict/alerts'),
+  resolvePredictAlert: (alertId, data) => request(`/kinderpredict/alerts/${alertId}/resolve`, { method: 'PATCH', body: JSON.stringify(data) })
 };
