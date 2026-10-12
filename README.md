@@ -54,6 +54,59 @@ Non-competitive developmental progress evaluations across the five preschool pil
 
 ---
 
+## 🌟 Innovative Upgraded Modules
+
+KinderHub has been enhanced with six state-of-the-art early childhood modules designed to empower educators and delight families:
+
+### 1. 🌱 KinderGrowth AI (Child Learning Journey & Portfolios)
+* **5-Domain Continuous Portfolios**: Language, Motor Skills, Creativity, Social-Emotional, and Cognitive development.
+* **Child Self-Comparison**: Compares each child with their *own* previous observation baseline rather than peer rankings.
+* **Milestone Timeline**: Observation cards linked to activities, photos, and context (classroom vs. home).
+* **AI Age-Appropriate Activity Suggestions**: Pedagogical activity recommendations with explicit rationales and **educator review/approval workflow**.
+* **Monthly Developmental Summaries**: Synthesis reports published directly to parents with strengths and nurturing goals.
+
+### 2. 🌍 KinderConnect (Multilingual Home-School Bridge)
+* **Trilingual Native Support**: Instant language switching between **English (EN)**, **मराठी (MR - Marathi)**, and **हिन्दी (HI - Hindi)**.
+* **Structured Routine Updates**: Meals, hydration, sleep quality/duration, activities, and photos.
+* **Bilingual Parent Digests**: Automatically generates warm, conversational narrative digests in Marathi and Hindi while preserving original teacher text.
+* **Home Activity Extensions**: Screen-free, play-based evening prompts for families.
+* **Parent Feedback Feed**: Interactive reactions (`❤️`, `⭐`, `👏`) and thank-you notes.
+* **Parental Privacy Controls**: Granular consent settings for photo sharing and portfolio retention.
+
+### 3. 🛡️ KinderSafe (Child Safety & Authorized Pickup Protocol)
+* **Authorized Guardian Directory**: Registered guardians with photos, relationships, and emergency contact details.
+* **Time-Limited QR Pickup Passes & 6-Digit OTPs**: Expire automatically after 2, 4, or 8 hours with secure signature validation.
+* **Staff Pickup Verification Terminal**: Fast validation screen with side-by-side guardian identity checklist, emergency contacts, and allergy alerts.
+* **Anti-Replay Safeguard**: Permanent invalidation after completed handover; prevents duplicate pass redemptions.
+* **Zero Face-Only Verification Policy**: Facial recognition is strictly forbidden as the sole identity verification mechanism.
+* **Live Emergency Reunification Roster**: Live headcount of on-campus children from attendance sheets for evacuation drills.
+* **Safety & First Aid Incident Tracking**: Detailed log of minor falls, first aid, and parental notification timestamps.
+
+### 4. 🗺️ KinderQuest (Play-Based Wonder Garden Quests)
+* **Wonder Garden Learning Theme**: Peaceful, gamified learning chapters (Sprout Sanctuary, Butterfly Valley, Whispering Woods).
+* **Interactive Mini-Activities**: Leaf color matching, shape sorting, caterpillar counting, and storytelling prompts.
+* **Chapter Unlock Controls**: Teachers unlock chapters based on developmental readiness.
+* **Non-Competitive Badges**: Celebrate individual milestones without leaderboards, peer rankings, or countdown pressure.
+* **Offline Home Quests**: Screen-free activities for parents to play at home.
+
+### 5. ⚡ KinderOffline (Teacher Workflow Resilience)
+* **Client-Side Persistence Queue**: Caches attendance, observations, and daily logs locally in browser storage when disconnected.
+* **Live Sync Status Indicator**: Persistent visual badge in the Navbar (`Online - Synced`, `Offline - X Queued`, `Syncing...`).
+* **Auto-Reconnect Synchronization**: Listens for network reconnects and syncs queued drafts idempotently.
+* **Conflict Resolution**: Safely merges offline edits with server records without discarding unsynchronized data.
+
+### 6. ⚡ KinderPredict (Rule-Based School Action Dashboard)
+* **Deterministic Operational Rules**:
+  1. *Repeated Absences*: Flags students with 2+ absences with exact date stamps and recommends compassionate parent check-in.
+  2. *Overdue Tuition*: Identifies invoices past due with outstanding balance and days late.
+  3. *Class Capacity*: Identifies classrooms approaching ≥80% capacity with student-to-teacher ratio limits.
+  4. *Admissions Pipeline*: Flags applications stalled in 'Pending' or 'Under Review' for > 3 days.
+* **Transparent Rule Explanations**: Discloses exact rule logic for every flag and recommends actionable steps.
+* **Staff Review & Resolution**: Authorized staff can mark flags as reviewed or resolved with recorded action notes.
+* **Ethical Governance**: Strict policy against unvalidated predictions of child intelligence, behavior, or future academics.
+
+---
+
 ## 💻 Technology Stack
 
 * **Frontend**: React 19, Vite 8, Tailwind CSS, Lucide React, Recharts.
@@ -63,67 +116,29 @@ Non-competitive developmental progress evaluations across the five preschool pil
 
 ---
 
-## 🚀 Quick Start Guide
+## 🧪 Comprehensive Automated Test Suite (69 Tests)
 
-### 1. Prerequisites
-* **Node.js** v18+ (tested on Node v24)
-* **npm** v9+
-
-### 2. Installation
-
-Clone or open the repository root:
-```bash
-# Install root dependencies
-npm install
-
-# Install server dependencies
-cd server
-npm install
-
-# Install client dependencies
-cd ../client
-npm install
-```
-
-### 3. Running the Application
-
-You can launch both the backend and frontend concurrently:
-
-```bash
-# From the project root:
-# Terminal 1: Start Backend API (Port 5000)
-cd server
-npm run dev
-
-# Terminal 2: Start Vite Frontend (Port 5173)
-cd client
-npm run dev
-```
-
-Open your browser at:
-👉 **`http://localhost:5173/`**
-
----
-
-## 🧪 Automated End-to-End Test Suite
-
-KinderHub includes a comprehensive 36-test integration suite covering authentication, RBAC route guards, student enrollment CRUD, admissions conversion pipeline, daily attendance logging, fee recalculation (subtotal - discounts, partial payments, remainder settlement, receipt generation), parent portal access, compliance reports, and deletion safeguards.
+KinderHub includes a comprehensive 69-test automated integration suite covering both core operations and all six innovation modules.
 
 To execute the test suite:
 ```bash
-# From project root:
-npm run test:e2e
+# Run all 69 integration tests (Core + Innovation modules):
+npm run test:all
 
-# Or from server directory:
-cd server
+# Or run innovation tests specifically:
+npm run test:innovations
+
+# Or run core e2e tests:
 npm run test:e2e
 ```
 
 **Expected Result:**
 ```
-🏁 Total E2E Tests: 36
-✅ Passed: 36
+==========================================
+🏁 Total Tests: 69 (36 Core + 33 Innovations)
+✅ Passed: 69
 ❌ Failed: 0
+==========================================
 ```
 
 ---
@@ -180,6 +195,18 @@ NODE_ENV=development
 | `GET` | `/api/schedule/timetable` | Weekly class timetable |
 | `GET` | `/api/communication/announcements`| Campus bulletins & notices |
 | `GET` | `/api/reports?type=attendance` | Searchable audit tables for export |
+| `GET` | `/api/kindergrowth/profile/:id` | KinderGrowth 5-domain profile & self-comparison |
+| `POST` | `/api/kindergrowth/observations` | Record educator or parent home observation |
+| `POST` | `/api/kindergrowth/ai-suggestions` | Generate AI age-appropriate activity suggestions |
+| `PATCH`| `/api/kindergrowth/ai-suggestions/:id/review` | Educator reviews and approves suggestion |
+| `GET` | `/api/kinderconnect/timeline/:id` | Daily timeline (meals, naps, activities, photos) |
+| `POST` | `/api/kinderconnect/translate` | Trilingual translation engine (EN, MR, HI) |
+| `POST` | `/api/kindersafe/passes/generate` | Generate time-limited QR pickup pass & 6-digit OTP |
+| `POST` | `/api/kindersafe/passes/verify` | Staff pickup verification terminal |
+| `GET` | `/api/kindersafe/emergency-accountability` | Live emergency reunification headcount roster |
+| `GET` | `/api/kinderquest/journey/:id` | Play-based Wonder Garden learning journey |
+| `POST` | `/api/kinderoffline/sync` | Idempotent batch sync for offline-queued records |
+| `GET` | `/api/kinderpredict/alerts` | Rule-based school action alerts (absences, fees, capacity) |
 
 ---
 
