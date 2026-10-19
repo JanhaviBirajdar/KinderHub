@@ -1,4 +1,13 @@
-const API_BASE = '/api';
+// Dynamic API base URL: Reads VITE_API_URL when deployed (e.g. on Vercel to connect to Render),
+// or falls back to '/api' for local Vite proxy development.
+const getApiBase = () => {
+  const envUrl = (import.meta.env.VITE_API_URL || '').trim();
+  if (!envUrl) return '/api';
+  const cleanUrl = envUrl.replace(/\/+$/, '');
+  return cleanUrl.endsWith('/api') ? cleanUrl : `${cleanUrl}/api`;
+};
+
+const API_BASE = getApiBase();
 
 // Helper for HTTP requests with JWT token
 const request = async (endpoint, options = {}) => {
