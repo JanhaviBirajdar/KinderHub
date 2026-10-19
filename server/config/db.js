@@ -1,4 +1,12 @@
 import mongoose from 'mongoose';
+import dns from 'dns';
+
+// Fix for Node.js querySrv ECONNREFUSED on Windows / router DNS
+try {
+  dns.setServers(['8.8.8.8', '8.8.4.4']);
+} catch (e) {
+  // Ignore if custom DNS cannot be set
+}
 
 let isConnected = false;
 let useMemoryFallback = false;
@@ -8,7 +16,7 @@ export const connectDB = async () => {
   
   try {
     const conn = await mongoose.connect(mongoURI, {
-      serverSelectionTimeoutMS: 2500, // Quick timeout to fallback cleanly if no Mongo service
+      serverSelectionTimeoutMS: 5000,
     });
     isConnected = true;
     useMemoryFallback = false;
